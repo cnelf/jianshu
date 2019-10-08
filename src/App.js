@@ -1,10 +1,18 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
+import { Provider } from 'react-redux'
+import store from './store'
+import { GlobalStyle } from './style'
+import { GlobalIconStyle } from './static/iconfont/iconfont'
+import Header from './common/header'
 
 function App() {
   return (
     <div className="App">
-      jianshu
+      <Provider store={store}>
+        <GlobalStyle />
+        <GlobalIconStyle />
+        <Header />
+      </Provider>
     </div>
   );
 }
