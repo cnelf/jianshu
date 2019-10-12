@@ -3,7 +3,7 @@ import logoUrl from '../../static/logo.png'
 
 export const HeaderWrapper = styled.div`
   height: 56px;
-  border-bottom: 1px solid #f0f0f0
+  border-bottom: 1px solid #f0f0f0;
 `
 
 export const InnerWrapper = styled.div`
@@ -73,6 +73,56 @@ export const SearchWrapper = styled.div`
   .iconfont.focused {
     color: #fff;
     background: #969696;
+  }
+`
+
+export const SearchInfo = styled.div`
+  position: absolute;
+  left: 15px;
+  top: 58px;
+  width: 250px;
+  background-color: #fff;
+  box-shadow: 0 0 8px rgba(0,0,0,.2);
+  padding: 20px 20px 10px;
+  box-sizing: border-box;
+  &:before {
+    display: block;
+    position: relative;
+    background: #fff;
+    top: -25px;
+    left: 10px;
+    content: "";
+    width: 10px;
+    height: 10px;
+    transform: rotate(45deg);
+  }
+`
+
+export const SearchInfoTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  line-height: 20px;
+  font-size: 14px;
+  color: #969696;
+  margin-bottom: 10px;
+  .SearchInfoSwitch {
+    cursor: pointer;
+  }
+`
+
+export const SearchInfoList = styled.ul`
+`
+
+export const SearchInfoItem = styled.li`
+  display: inline-block;
+  margin-right: 10px;
+  line-height: 28px;
+  a {
+    padding: 2px 6px;
+    font-size: 12px;
+    color: #787878;
+    border: 1px solid #ddd;
+    border-radius: 3px;
   }
 `
 

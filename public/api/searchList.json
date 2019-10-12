@@ -1,0 +1,33 @@
+{
+  "success": true,
+  "data": [
+    "前端",
+    "后端",
+    "JavaScript",
+    "Java",
+    "CSS",
+    "HTML",
+    "React",
+    "Vue",
+    "Angular",
+    "jQuery",
+    "BootStrap",
+    "ElementUI",
+    "Vent",
+    "Vuex",
+    "Pythen",
+    "PHP",
+    "微服务",
+    "云架构",
+    "大数据",
+    "Go",
+    "数据库",
+    "MySQL",
+    "SQLServer",
+    "SSM",
+    "SpringBoot",
+    "Nginx",
+    "Git",
+    "运维"
+  ]
+}
