@@ -25,19 +25,25 @@ class Header extends Component {
   }
 
   showSearchInfo() {
-    if (this.props.focused) {
+    let { focused, list, page, totalPage, moveIn, handleMouseEnter, handleMouseLeave, handleChangePage } = this.props
+    let pageList = []
+    let newList = list.toJS()
+    if (newList.length) {
+      for (let i = (page - 1) * 10; i < page * 10; i++) {
+        pageList.push(
+          <SearchInfoItem key={newList[i]}><a href="#1">{newList[i]}</a></SearchInfoItem>
+        )
+      }
+    }
+    if (focused || moveIn) {
       return (
-        <SearchInfo>
+        <SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <SearchInfoTitle>
             <div>热门搜索</div>
-            <div className="SearchInfoSwitch">换一批</div>
+            <div className="SearchInfoSwitch" onClick={() => handleChangePage(page, totalPage)}>换一批</div>
           </SearchInfoTitle>
           <SearchInfoList>
-            {this.props.list.map((item) => {
-              return (
-                <SearchInfoItem key={item}><a href="#1">{item}</a></SearchInfoItem>
-              )
-            })}
+            {pageList}
           </SearchInfoList>
         </SearchInfo>
       )
@@ -45,6 +51,7 @@ class Header extends Component {
   }
 
   render() {
+    let { focused, handleInputFocus, handleInputBlur } = this.props
     return (
       <HeaderWrapper>
         <InnerWrapper>
@@ -57,15 +64,15 @@ class Header extends Component {
             <SearchWrapper>
               <CSSTransition
                 timeout={400}
-                in={this.props.focused}
+                in={focused}
                 classNames="slide"
               >
                 <NavSearch
-                  className={this.props.focused ? 'focused' : ''}
-                  onFocus={this.props.handleInputFocus} onBlur={this.props.handleInputBlur}
+                  className={focused ? 'focused' : ''}
+                  onFocus={handleInputFocus} onBlur={handleInputBlur}
                 />
               </CSSTransition>
-              <i className={this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe62b;</i>
+              <i className={focused ? 'focused iconfont' : 'iconfont'}>&#xe62b;</i>
               {this.showSearchInfo()}
             </SearchWrapper>
           </Nav>
@@ -82,7 +89,10 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     focused: state.getIn(['header', 'focused']),
-    list: state.getIn(['header', 'list'])
+    list: state.getIn(['header', 'list']),
+    moveIn: state.getIn(['header', 'moveIn']),
+    page: state.getIn(['header', 'page']),
+    totalPage: state.getIn(['header', 'totalPage'])
   }
 }
 
@@ -94,6 +104,19 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleInputBlur() {
       dispatch(actionCreators.searchBlur())
+    },
+    handleMouseEnter() {
+      dispatch(actionCreators.mouseEnter())
+    },
+    handleMouseLeave() {
+      dispatch(actionCreators.mouseLeave())
+    },
+    handleChangePage(page, totalPage) {
+      if (page < totalPage) {
+        dispatch(actionCreators.changePage(page + 1))
+      } else {
+        dispatch(actionCreators.changePage(1))
+      }
     }
   }
 }
