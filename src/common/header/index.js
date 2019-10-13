@@ -54,7 +54,7 @@ class Header extends Component {
   }
 
   render() {
-    let { focused, handleInputFocus, handleInputBlur } = this.props
+    let { focused, list, handleInputFocus, handleInputBlur } = this.props
     return (
       <HeaderWrapper>
         <InnerWrapper>
@@ -72,7 +72,7 @@ class Header extends Component {
               >
                 <NavSearch
                   className={focused ? 'focused' : ''}
-                  onFocus={handleInputFocus} onBlur={handleInputBlur}
+                  onFocus={() => handleInputFocus(list)} onBlur={handleInputBlur}
                 />
               </CSSTransition>
               <i className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe62b;</i>
@@ -101,9 +101,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleInputFocus() {
+    handleInputFocus(list) {
       dispatch(actionCreators.searchFocus())
-      dispatch(actionCreators.getSearchList())
+      if (list.size === 0) {
+        dispatch(actionCreators.getSearchList())
+      }
     },
     handleInputBlur() {
       dispatch(actionCreators.searchBlur())
